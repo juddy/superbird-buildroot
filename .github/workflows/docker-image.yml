@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "buildroot-openlinux" ]
+  pull_request:
+    branches: [ "buildroot-openlinux" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+      run: sudo apt install bison
+      run: git clone https://github.com/frederic/superbird-buildroot.git
+      run: cd superbird-buildroot/
+      run: git checkout buildroot-openlinux
+      run: wget https://releases.linaro.org/components/toolchain/binaries/7.3-2018.05/aarch64-linux-gnu/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu.tar.xz -O vendor/amlogic/external/packages/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu.tar.xz
+      run: wget https://releases.linaro.org/components/toolchain/binaries/7.3-2018.05/arm-linux-gnueabihf/gcc-linaro-7.3.1-2018.05-x86_64_arm-linux-gnueabihf.tar.xz -O vendor/amlogic/external/packages/gcc-linaro-7.3.1-2018.05-x86_64_arm-linux-gnueabihf.tar.xz
+      run: wget https://cobalt.googlesource.com/cobalt/+archive/refs/tags/20.lts.3.tar.gz -O vendor/amlogic/external/packages/cobalt-20.lts.3.244012.tar.gz
+      run: cd ..
